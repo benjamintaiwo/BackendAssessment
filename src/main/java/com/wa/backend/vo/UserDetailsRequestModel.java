@@ -1,7 +1,5 @@
 package com.wa.backend.vo;
 
-import java.util.List;
-
 public class UserDetailsRequestModel {
 	
 	private String firstName;

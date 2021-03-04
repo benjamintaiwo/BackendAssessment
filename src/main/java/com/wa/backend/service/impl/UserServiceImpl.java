@@ -6,21 +6,17 @@
 package com.wa.backend.service.impl;
 
 import com.wa.backend.Util.Utils;
-import org.modelmapper.ModelMapper;
 import com.wa.backend.entity.UserEntity;
+import com.wa.backend.entity.enums.RoleEnums;
+import com.wa.backend.entity.enums.StatusEnums;
 import com.wa.backend.repository.UserRepository;
 import com.wa.backend.service.UserService;
 import com.wa.backend.vo.ErrorMessages;
 import com.wa.backend.vo.UserDto;
 import com.wa.backend.vo.UserServiceException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,17 +57,22 @@ public class UserServiceImpl implements UserService{
 
 		if (userRepository.findByEmail(user.getEmail()) != null)
 			throw new UserServiceException("Record already exists");
-
+             
+		if (user.getMobilePhone() != null && user.getMobilePhone().length() < 11 || user.getMobilePhone().length() > 11)
+                    throw new UserServiceException("MobilePhone number is not correct");
 		
-		  
 		
 		ModelMapper modelMapper = new ModelMapper();
 		UserEntity userEntity = modelMapper.map(user, UserEntity.class);
-
+                Date today = new Date();
 		String publicUserId = utils.generateUserId(30);
 		userEntity.setUserId(publicUserId);
-		userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		userEntity.setEmailVerificationToken(utils.generateEmailVerificationToken(publicUserId));
+                userEntity.setDateRegistered(today);
+                userEntity.setStatus(StatusEnums.REGISTERED);
+                userEntity.setTheRole(RoleEnums.USER);
+                
 
 		UserEntity storedUserDetails = userRepository.save(userEntity);
  
@@ -103,8 +104,8 @@ public class UserServiceImpl implements UserService{
 		if (userEntity == null)
 			throw new UsernameNotFoundException(email);
 		
-		return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), 
-				userEntity.getEmailVerificationStatus(),
+		return new User(userEntity.getEmail(), userEntity.getPassword(), 
+				userEntity.getVerified(),
 				true, true,
 				true, new ArrayList<>());
 
@@ -149,8 +150,12 @@ public class UserServiceImpl implements UserService{
 
 		if (userEntity == null)
 			throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+                Date today = new Date();
+                userEntity.setStatus(StatusEnums.DEACTIVATED);
+                userEntity.setDateDeactivated(today);
+                userRepository.save(userEntity);
 
-		userRepository.delete(userEntity);
+		//userRepository.delete(userEntity);
 
 	}
 
@@ -185,7 +190,7 @@ public class UserServiceImpl implements UserService{
             boolean hastokenExpired = Utils.hasTokenExpired(token);
             if (!hastokenExpired) {
                 userEntity.setEmailVerificationToken(null);
-                userEntity.setEmailVerificationStatus(Boolean.TRUE);
+                userEntity.setVerified(Boolean.TRUE);
                 userRepository.save(userEntity);
                 returnValue = true;
             }

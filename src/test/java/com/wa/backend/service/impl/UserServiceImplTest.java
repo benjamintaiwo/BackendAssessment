@@ -1,42 +1,30 @@
 package com.wa.backend.service.impl;
 
-import antlr.Utils;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import com.wa.backend.Util.Utils;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import com.appsdeveloperblog.app.ws.exceptions.UserServiceException;
-import com.appsdeveloperblog.app.ws.io.entity.AddressEntity;
-import com.appsdeveloperblog.app.ws.io.entity.UserEntity;
-import com.appsdeveloperblog.app.ws.io.repository.UserRepository;
-import com.appsdeveloperblog.app.ws.shared.AmazonSES;
-import com.appsdeveloperblog.app.ws.shared.Utils;
-import com.appsdeveloperblog.app.ws.shared.dto.AddressDTO;
-import com.appsdeveloperblog.app.ws.shared.dto.UserDto;
 import com.wa.backend.entity.UserEntity;
+import com.wa.backend.entity.enums.RoleEnums;
 import com.wa.backend.repository.UserRepository;
-
+import com.wa.backend.vo.UserDto;
+import com.wa.backend.vo.UserServiceException;
+import java.util.Date;
+/**
+ *
+ * @author Benjamin.Abegunde
+ */
 class UserServiceImplTest {
 
 	@InjectMocks
@@ -61,15 +49,18 @@ class UserServiceImplTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		
+		Date today = new Date();
 		userEntity = new UserEntity();
 		userEntity.setId(1L);
 		userEntity.setFirstName("Ben");
 		userEntity.setLastName("Taiwo");
 		userEntity.setUserId(userId);
-		userEntity.setEncryptedPassword(encryptedPassword);
+		userEntity.setPassword(encryptedPassword);
 		userEntity.setEmail("test@test.com");
 		userEntity.setEmailVerificationToken("7htnfhr758");
+                userEntity.setMobilePhone("08067848034");
+                userEntity.setDateRegistered(today);
+                userEntity.setTheRole(RoleEnums.USER);
 	
 	}
 
@@ -132,6 +123,8 @@ class UserServiceImplTest {
 		userDto.setLastName("Taiwo");
 		userDto.setPassword("12345678");
 		userDto.setEmail("test@test.com");
+                userDto.setMobilePhone("08067848034");
+                
 
 		UserDto storedUserDetails = userService.createUser(userDto);
 		assertNotNull(storedUserDetails);
