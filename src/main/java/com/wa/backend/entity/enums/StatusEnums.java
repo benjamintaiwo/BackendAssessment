@@ -10,5 +10,5 @@ package com.wa.backend.entity.enums;
  * @author Benjamin.Abegunde
  */
 public enum StatusEnums {
-    
+    REGISTERED, VERIFIED, DEACTIVATED;
 }

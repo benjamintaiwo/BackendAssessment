@@ -8,7 +8,7 @@ package com.wa.backend.entity;
 import com.wa.backend.entity.enums.RoleEnums;
 import com.wa.backend.entity.enums.StatusEnums;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -61,9 +61,12 @@ public class UserEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusEnums status;
     
-    private LocalDate dateVerified, dateDeactivated;
+    private Date dateVerified, dateDeactivated;
     
-    private LocalDate dateRegistered, dateUpdated;
+    private Date dateRegistered, dateUpdated;
+    
+    @Column(nullable=false)
+    private String userId;
 
     public long getId() {
         return id;
@@ -153,36 +156,44 @@ public class UserEntity implements Serializable {
         this.status = status;
     }
 
-    public LocalDate getDateVerified() {
+    public Date getDateVerified() {
         return dateVerified;
     }
 
-    public void setDateVerified(LocalDate dateVerified) {
+    public void setDateVerified(Date dateVerified) {
         this.dateVerified = dateVerified;
     }
 
-    public LocalDate getDateDeactivated() {
+    public Date getDateDeactivated() {
         return dateDeactivated;
     }
 
-    public void setDateDeactivated(LocalDate dateDeactivated) {
+    public void setDateDeactivated(Date dateDeactivated) {
         this.dateDeactivated = dateDeactivated;
     }
 
-    public LocalDate getDateRegistered() {
+    public Date getDateRegistered() {
         return dateRegistered;
     }
 
-    public void setDateRegistered(LocalDate dateRegistered) {
+    public void setDateRegistered(Date dateRegistered) {
         this.dateRegistered = dateRegistered;
     }
 
-    public LocalDate getDateUpdated() {
+    public Date getDateUpdated() {
         return dateUpdated;
     }
 
-    public void setDateUpdated(LocalDate dateUpdated) {
+    public void setDateUpdated(Date dateUpdated) {
         this.dateUpdated = dateUpdated;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
     
     
