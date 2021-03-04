@@ -5,6 +5,7 @@
  */
 package com.wa.backend.service.impl;
 
+import com.wa.backend.Util.AmazonSES;
 import com.wa.backend.Util.Utils;
 import com.wa.backend.entity.UserEntity;
 import com.wa.backend.entity.enums.RoleEnums;
@@ -49,8 +50,8 @@ public class UserServiceImpl implements UserService{
 	
 	
 	
-//	@Autowired
-//    AmazonSES amazonSES;
+	@Autowired
+        AmazonSES amazonSES;
  
 	@Override
 	public UserDto createUser(UserDto user) {
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService{
 		//BeanUtils.copyProperties(storedUserDetails, returnValue);
 		UserDto returnValue  = modelMapper.map(storedUserDetails, UserDto.class);
 		
-       
+                amazonSES.verifyEmail(returnValue);
 
 		return returnValue;
 	}
@@ -153,8 +154,9 @@ public class UserServiceImpl implements UserService{
                 Date today = new Date();
                 userEntity.setStatus(StatusEnums.DEACTIVATED);
                 userEntity.setDateDeactivated(today);
+                amazonSES.offBoard(userEntity.getEmail());
                 userRepository.save(userEntity);
-
+                
 		//userRepository.delete(userEntity);
 
 	}
