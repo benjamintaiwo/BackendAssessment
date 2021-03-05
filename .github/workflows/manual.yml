@@ -1,0 +1,18 @@
+# This is a basic workflow that is manually triggered
+
+
+name: codacy-coverage-reporter
+
+on: ["push"]
+
+jobs:
+  codacy-coverage-reporter:
+    runs-on: ubuntu-latest
+    name: codacy-coverage-reporter
+    steps:
+      - uses: actions/checkout@master
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{6ecea5309d034f6b88b0667d33f850d9}}
+          coverage-reports: jacoco*.xml
