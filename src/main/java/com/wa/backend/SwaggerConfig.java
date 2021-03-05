@@ -25,6 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
+    private List<VendorExtension> vendorExtensions = new ArrayList<>();
     
      @Bean
     public LinkDiscoverers discoverers() {
@@ -34,15 +35,15 @@ public class SwaggerConfig {
 
     }
     
-    Contact contact = new Contact(
+    private Contact contact = new Contact(
             "Benjamin Abegunde",
             "https://github.com/benjamintaiwo", 
             "taiwoabegunde@live.com"
     );
     
-    List<VendorExtension> vendorExtensions = new ArrayList<>();
+    
 	
-	ApiInfo apiInfo = new ApiInfo(
+	private ApiInfo apiInfo = new ApiInfo(
 			" A RESTful Web Service documentation to my backend application",
 			"This pages documents a User manager RESTful Web Service endpoints", 
 			"1.0",

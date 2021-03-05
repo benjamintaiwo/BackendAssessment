@@ -2,8 +2,6 @@ package com.wa.backend.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-
-
 import static org.mockito.ArgumentMatchers.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +20,14 @@ import com.wa.backend.vo.UserRest;
 class UserControllerTest {
 
 	@InjectMocks
-	UserController userController;
+	private UserController userController;
 	
 	@Mock
 	UserServiceImpl userService;
 	
-	UserDto userDto;
+	private UserDto userDto;
 	
-	final String USER_ID = "bfhry47fhdjd7463gdh";
+	private final String USER_ID = "bfhry47fhdjd7463gdh";
 	
 	@BeforeEach
 	void setUp() throws Exception {

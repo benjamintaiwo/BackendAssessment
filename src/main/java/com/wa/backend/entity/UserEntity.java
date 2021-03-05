@@ -5,14 +5,10 @@
  */
 package com.wa.backend.entity;
 
-import com.wa.backend.entity.enums.RoleEnums;
-import com.wa.backend.entity.enums.StatusEnums;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -53,11 +49,11 @@ public class UserEntity implements Serializable {
     @Column(nullable=false)
     private Boolean verified = false;
     private String theRole;
-    private String status;
-    
-    private Date dateVerified, dateDeactivated;
-    
-    private Date dateRegistered, dateUpdated;
+    private String status; 
+    private Date dateVerified;
+    private Date dateDeactivated;
+    private Date dateRegistered;
+    private Date dateUpdated;
     
     @Column(nullable=false)
     private String userId;

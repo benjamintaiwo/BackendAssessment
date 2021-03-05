@@ -29,9 +29,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class UserRepositoryTest {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 	
-	static boolean recordsCreated = false;
+	private static boolean recordsCreated = false;
 	
 
 	@BeforeEach
@@ -112,7 +112,7 @@ class UserRepositoryTest {
              userEntity.setMobilePhone("08067846033");
              userEntity.setDateRegistered(today);
              userEntity.setDateVerified(today);
-             userEntity.setUserId("1a2b3c");;
+             userEntity.setUserId("1a2b3c");
              
 	
 	     userRepository.save(userEntity);

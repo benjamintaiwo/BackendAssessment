@@ -45,9 +45,9 @@ class UserServiceImplTest {
 	BCryptPasswordEncoder bCryptPasswordEncoder;
  
 	String userId = "hhty57ehfy";
-	String encryptedPassword = "74hghd8474jf";
+	private String encryptedPassword = "74hghd8474jf";
 	
-	UserEntity userEntity;
+	private UserEntity userEntity;
  
 	@BeforeEach
 	void setUp() throws Exception {

@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 
 	

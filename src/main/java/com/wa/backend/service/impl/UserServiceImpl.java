@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService{
     
   
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	@Autowired
 	Utils utils;
@@ -179,11 +179,12 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<UserDto> getUsers(int page, int limit) {
+                int newPage = page;
 		List<UserDto> returnValue = new ArrayList<>();
 		
-		if(page>0) page = page-1;
+		if(page>0) newPage = page-1;
 		
-		Pageable pageableRequest = PageRequest.of(page, limit);
+		Pageable pageableRequest = PageRequest.of(newPage, limit);
 		
 		Page<UserEntity> usersPage = userRepository.findAllUsersNotDeactivated(pageableRequest);
 		List<UserEntity> users = usersPage.getContent();

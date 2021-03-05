@@ -23,7 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class UtilsTest {
 	
 	@Autowired
-	Utils utils;
+	private Utils utils;
 
 	@BeforeEach
 	void setUp() throws Exception {

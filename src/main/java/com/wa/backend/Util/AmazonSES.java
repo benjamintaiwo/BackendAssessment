@@ -20,15 +20,15 @@ import com.wa.backend.vo.UserDto;
 @Service
 public class AmazonSES {
 	// This address must be verified with Amazon SES.
-	final String FROM = "taiwoabegunde@live.com";
+	private final String FROM = "taiwoabegunde@live.com";
 
 	// The subject line for the email.
-	final String SUBJECT = "One last step to complete your registration";
+	private final String SUBJECT = "One last step to complete your registration";
 	
-	final String SUBJECT2 = "You are leaving too soon";
+	private final String SUBJECT2 = "You are leaving too soon";
 
 	// The HTML body for the email.
-	final String HTMLBODY = "<h1>Please verify your email address</h1>"
+	private final String HTMLBODY = "<h1>Please verify your email address</h1>"
 			+ "<p>Thank you for registering with Oneworld Accuracy. To complete registration process,"
 			+ " Use the following code for verification: "
 			+ "$tokenValue"
@@ -36,20 +36,27 @@ public class AmazonSES {
 			+ "Thank you! And we are waiting for you inside!";
 
 	// The email body for recipients with non-HTML email clients.
-	final String TEXTBODY = "Please verify your email address. "
+	private final String TEXTBODY = "Please verify your email address. "
 			+ "Thank you for registering with Oneworld Accuracy. To complete registration process,"
 			+ " open then the following URL in your browser window: "
 			+ "$tokenValue"
 			+ " Thank you! And we are waiting for you inside!";
 	
         
-        
+        private final String HTMLBODY2 = "<h1>We are sad to let you go</h1>"
+			+ "<p>We hope to see you again"+ "<br/><br/>"
+			+ "Thank you!";
+
+	// The email body for recipients with non-HTML email clients.
+	private final String TEXTBODY2 = "We are sad to let you go. "
+			+ "We hope to see you again."
+                        + "Thank you!";
 	
 	
 
 	public void verifyEmail(UserDto userDto) {
 
-		// You can also set your keys this way. And it will work!
+	
 		//System.setProperty("aws.accessKeyId", "<YOUR KEY ID HERE>"); 
 		//System.setProperty("aws.secretKey", "<SECRET KEY HERE>"); 
 		
@@ -75,27 +82,13 @@ public class AmazonSES {
         
         
         
-        final String HTMLBODY2 = "<h1>We are sad to let you go</h1>"
-			+ "<p>We hope to see you again"+ "<br/><br/>"
-			+ "Thank you!";
-
-	// The email body for recipients with non-HTML email clients.
-	final String TEXTBODY2 = "We are sad to let you go. "
-			+ "We hope to see you again."
-                        + "Thank you!";
-			
-	
-        
-        
-
-        
         public void offBoard(String email) {
 
-		// You can also set your keys this way. And it will work!
+
 		//System.setProperty("aws.accessKeyId", "<YOUR KEY ID HERE>"); 
 		//System.setProperty("aws.secretKey", "<SECRET KEY HERE>"); 
 		
-		AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard().withRegion(Regions.US_EAST_1)
+		AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard().withRegion(Regions.US_WEST_2)
 				.build();
  
 		
