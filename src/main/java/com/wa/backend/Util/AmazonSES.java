@@ -29,17 +29,17 @@ public class AmazonSES {
 
 	// The HTML body for the email.
 	final String HTMLBODY = "<h1>Please verify your email address</h1>"
-			+ "<p>Thank you for registering with One World Accuracy. To complete registration process,"
-			+ " click on the following link: "
-			+ "<a href='http://ec2-35-173-238-100.compute-1.amazonaws.com:8080/verification-service/email-verification.html?token=$tokenValue'>"
-			+ "Final step to complete your registration" + "</a><br/><br/>"
+			+ "<p>Thank you for registering with Oneworld Accuracy. To complete registration process,"
+			+ " Use the following code for verification: "
+			+ "$tokenValue"
+			+ "<br/><br/>"
 			+ "Thank you! And we are waiting for you inside!";
 
 	// The email body for recipients with non-HTML email clients.
 	final String TEXTBODY = "Please verify your email address. "
-			+ "Thank you for registering with One World Accuracy. To complete registration process,"
+			+ "Thank you for registering with Oneworld Accuracy. To complete registration process,"
 			+ " open then the following URL in your browser window: "
-			+ " http://ec2-35-173-238-100.compute-1.amazonaws.com:8080/verification-service/email-verification.html?token=$tokenValue"
+			+ "$tokenValue"
 			+ " Thank you! And we are waiting for you inside!";
 	
         

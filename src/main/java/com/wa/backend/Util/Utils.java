@@ -3,11 +3,7 @@ package com.wa.backend.Util;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
-
 import org.springframework.stereotype.Service;
-
-import com.wa.backend.Util.SecurityConstants;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
