@@ -17,7 +17,7 @@ performed operation(s) and returns a response DTO to the calling service.
 This approach allows me to change the view and models independently without having to worry one might break the other.
 
 ## Tools and Dependencies:
-Java 11
+* Java 11
 * Spring Boot 
 * Springboot jpa
 * Maven
