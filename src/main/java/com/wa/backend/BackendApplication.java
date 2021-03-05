@@ -1,5 +1,6 @@
 package com.wa.backend;
 
+import com.wa.backend.Util.AmazonSES;
 import com.wa.backend.Util.AppProperties;
 
 import org.springframework.boot.SpringApplication;
@@ -26,10 +27,10 @@ public class BackendApplication extends SpringBootServletInitializer {
 		return new BCryptPasswordEncoder();
 	}
 	
-//	@Bean
-//	public AmazonSES getAmazonSES() {
-//		return new AmazonSES();
-//	}
+	@Bean
+	public AmazonSES getAmazonSES() {
+		return new AmazonSES();
+	}
  
 	@Bean 
 	public SpringApplicationContext springApplicationContext()

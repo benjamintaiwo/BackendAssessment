@@ -153,6 +153,7 @@
                                 <exclude>com.wa.backend.controller.UserController</exclude>
                                 <exclude>com.wa.backend.Util.AmazonSES</exclude>
                                 <exclude>com.wa.backend.Util.WebSecurity</exclude>
+                                <exclude>com.wa.backend.vo.AppExceptionsHandler</exclude>
                               </excludes>
                               <limits>
                                 <limit>
