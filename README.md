@@ -1,4 +1,7 @@
 # Backend Assessment 
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6ecea5309d034f6b88b0667d33f850d9)](https://app.codacy.com/gh/benjamintaiwo/BackendAssessment?utm_source=github.com&utm_medium=referral&utm_content=benjamintaiwo/BackendAssessment&utm_campaign=Badge_Grade_Settings)
+
 ### A simple REST API backend application with spring boot
 ## Features
 *   Create user 
