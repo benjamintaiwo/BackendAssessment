@@ -5,6 +5,7 @@
 * Update User
 * Delete user
 * GET users
+* Onbaording and offboarding email set up
 ## STRUCTURE:
    The application is structured around a layered architecture involving the controller, the service layer and the data access layer. I followed a pattern that ensures 
 the service layer never accepts a model as input and never ever returns one either. 
