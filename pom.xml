@@ -151,6 +151,8 @@
                                 <exclude>com.wa.backend.controller.UserController.1</exclude>
                                 <exclude>com.wa.backend.controller.RequestOperationName</exclude>
                                 <exclude>com.wa.backend.controller.UserController</exclude>
+                                <exclude>com.wa.backend.Util.AmazonSES</exclude>
+                                <exclude>com.wa.backend.Util.WebSecurity</exclude>
                               </excludes>
                               <limits>
                                 <limit>

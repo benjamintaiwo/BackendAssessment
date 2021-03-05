@@ -35,7 +35,7 @@ public class SwaggerConfig {
     }
     
     Contact contact = new Contact(
-            "Benjamin Abegune",
+            "Benjamin Abegunde",
             "https://github.com/benjamintaiwo", 
             "taiwoabegunde@live.com"
     );
@@ -43,7 +43,7 @@ public class SwaggerConfig {
     List<VendorExtension> vendorExtensions = new ArrayList<>();
 	
 	ApiInfo apiInfo = new ApiInfo(
-			" A RESTful Web Service documentation to assess my backend sKills",
+			" A RESTful Web Service documentation to my backend application",
 			"This pages documents a User manager RESTful Web Service endpoints", 
 			"1.0",
 			"https://github.com/benjamintaiwo", 

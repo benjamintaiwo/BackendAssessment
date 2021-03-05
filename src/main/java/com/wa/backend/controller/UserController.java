@@ -46,11 +46,11 @@ public class UserController {
 	
 	@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public UserRest getUser(@PathVariable String id) {
-		UserRest returnValue = new UserRest();
+		
 
 		UserDto userDto = userService.getUserByUserId(id);
 		ModelMapper modelMapper = new ModelMapper();
-		returnValue = modelMapper.map(userDto, UserRest.class);
+		UserRest returnValue = modelMapper.map(userDto, UserRest.class);
 
 		return returnValue;
 	}
@@ -58,14 +58,15 @@ public class UserController {
 	@PostMapping(consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public UserRest createUser(@RequestBody UserDetailsRequestModel userDetails) throws Exception {
-		UserRest returnValue = new UserRest();
+		 
 
 		
 		ModelMapper modelMapper = new ModelMapper();
 		UserDto userDto = modelMapper.map(userDetails, UserDto.class);
 
 		UserDto createdUser = userService.createUser(userDto);
-		returnValue = modelMapper.map(createdUser, UserRest.class);
+		UserRest returnValue = modelMapper.map(createdUser, UserRest.class);
+                
 
 		return returnValue;
 	}
@@ -74,13 +75,13 @@ public class UserController {
 			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_VALUE })
 		public UserRest updateUser(@PathVariable String id, @RequestBody UserDetailsRequestModel userDetails) {
-		UserRest returnValue = new UserRest();
+		
 
 		UserDto userDto = new UserDto();
 		userDto = new ModelMapper().map(userDetails, UserDto.class);
 
 		UserDto updateUser = userService.updateUser(id, userDto);
-		returnValue = new ModelMapper().map(updateUser, UserRest.class);
+		UserRest  returnValue = new ModelMapper().map(updateUser, UserRest.class);
 
 		return returnValue;
 	}
@@ -108,6 +109,8 @@ public class UserController {
 		Type listType = new TypeToken<List<UserRest>>() {
 		}.getType();
 		returnValue = new ModelMapper().map(users, listType);
+                
+                        
 
 		/*for (UserDto userDto : users) {
 			UserRest userModel = new UserRest();
@@ -119,12 +122,6 @@ public class UserController {
 	}
 
 
-
-	
-	
-	 /*
-     * http://localhost:8080/api/users/email-verification?token=sdfsdf
-     * */
     @GetMapping(path = "/email-verification", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE })
     public OperationStatusModel verifyEmailToken(@RequestParam(value = "token") String token) {

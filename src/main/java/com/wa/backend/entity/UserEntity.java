@@ -43,7 +43,6 @@ public class UserEntity implements Serializable {
     @Column(nullable=false, length=120)
     private String email;
     
-    @Column(nullable=false, length=120)
     private String mobilePhone;
     
     @Column(nullable=false)
@@ -53,12 +52,8 @@ public class UserEntity implements Serializable {
 
     @Column(nullable=false)
     private Boolean verified = false;
-   
-    @Enumerated(EnumType.STRING)
-    private RoleEnums theRole;
-    
-    @Enumerated(EnumType.STRING)
-    private StatusEnums status;
+    private String theRole;
+    private String status;
     
     private Date dateVerified, dateDeactivated;
     
@@ -139,22 +134,23 @@ public class UserEntity implements Serializable {
         this.verified = verified;
     }
 
-    public RoleEnums getTheRole() {
+    public String getTheRole() {
         return theRole;
     }
 
-    public void setTheRole(RoleEnums theRole) {
+    public void setTheRole(String theRole) {
         this.theRole = theRole;
     }
 
-    public StatusEnums getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(StatusEnums status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
+    
     public Date getDateVerified() {
         return dateVerified;
     }

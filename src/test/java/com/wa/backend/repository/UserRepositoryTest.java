@@ -40,17 +40,17 @@ class UserRepositoryTest {
 		if(!recordsCreated) createRecords();
 	}
 
-//	@Test
-//	final void testGetVerifiedUsers() {
-//		Pageable pageableRequest = PageRequest.of(1, 1);
-//		Page<UserEntity> page = userRepository.findAllUsersWithConfirmedEmailAddress(pageableRequest);
-//		assertNotNull(page);
-//		
-//        List<UserEntity> userEntities = page.getContent();
-//        assertNotNull(userEntities);
-//        assertTrue(userEntities.size() == 1);
-//	}
-//	
+	@Test
+	final void testGetVerifiedUsers() {
+		Pageable pageableRequest = PageRequest.of(1, 1);
+		Page<UserEntity> page = userRepository.findAllUsersWithConfirmedEmailAddress(pageableRequest);
+		assertNotNull(page);
+		
+        List<UserEntity> userEntities = page.getContent();
+        assertNotNull(userEntities);
+        assertFalse(userEntities.size() == 1);
+	}
+	
 	
 	
 
@@ -82,23 +82,7 @@ class UserRepositoryTest {
 		assertTrue(userEntity.getUserId().equals(userId));
 	}
 	
-//	@Test
-//	final void testGetUserEntityFullNameById()
-//	{
-//		String userId = "1a2b3c";
-//		List<Object[]> records =  userRepository.getUserEntityFullNameById(userId);
-//		
-//        assertNotNull(records);
-//        assertTrue(records.size() == 1);
-//        
-//        Object[] userDetails = records.get(0);
-//      
-//        String firstName = String.valueOf(userDetails[0]);
-//        String lastName = String.valueOf(userDetails[1]);
-//
-//        assertNotNull(firstName);
-//        assertNotNull(lastName);
-//	}
+
 	
 	@Test 
 	final void testUpdateUserEntityEmailVerificationStatus()

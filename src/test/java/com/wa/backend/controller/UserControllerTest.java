@@ -36,13 +36,14 @@ class UserControllerTest {
 		MockitoAnnotations.initMocks(this);
 		
 		userDto = new UserDto();
+        userDto.setTitle(USER_ID);
         userDto.setFirstName("Ben");
         userDto.setLastName("Taiwo");
         userDto.setEmail("test@test.com");
-        userDto.setEmailVerificationStatus(Boolean.FALSE);
         userDto.setEmailVerificationToken(null);
         userDto.setUserId(USER_ID);
         userDto.setEncryptedPassword("xcf58tugh47");
+        userDto.setMobilePhone("08067845033");
 		
 	}
 
@@ -56,6 +57,8 @@ class UserControllerTest {
 	    assertEquals(USER_ID, userRest.getUserId());
 	    assertEquals(userDto.getFirstName(), userRest.getFirstName());
 	    assertEquals(userDto.getLastName(), userRest.getLastName());
+            assertEquals(userDto.getTitle(), userRest.getTitle());
+            assertEquals(userDto.getMobilePhone(), userRest.getMobilePhone());
 	}
 	
 	

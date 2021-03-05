@@ -1,5 +1,6 @@
 package com.wa.backend.service.impl;
 
+import com.wa.backend.Util.AmazonSES;
 import com.wa.backend.Util.Utils;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -21,6 +22,7 @@ import com.wa.backend.repository.UserRepository;
 import com.wa.backend.vo.UserDto;
 import com.wa.backend.vo.UserServiceException;
 import java.util.Date;
+import org.mockito.Mockito;
 /**
  *
  * @author Benjamin.Abegunde
@@ -36,8 +38,9 @@ class UserServiceImplTest {
 	@Mock
 	Utils utils;
 	
-	
-
+	@Mock
+	AmazonSES amazonSES;
+        
 	@Mock
 	BCryptPasswordEncoder bCryptPasswordEncoder;
  
@@ -60,7 +63,7 @@ class UserServiceImplTest {
 		userEntity.setEmailVerificationToken("7htnfhr758");
                 userEntity.setMobilePhone("08067848034");
                 userEntity.setDateRegistered(today);
-                userEntity.setTheRole(RoleEnums.USER);
+                userEntity.setTheRole(RoleEnums.USER.name());
 	
 	}
 
@@ -115,6 +118,7 @@ class UserServiceImplTest {
 		when(utils.generateUserId(anyInt())).thenReturn(userId);
 		when(bCryptPasswordEncoder.encode(anyString())).thenReturn(encryptedPassword);
 		when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
+                Mockito.doNothing().when(amazonSES).verifyEmail(any(UserDto.class));
 		
  		
 		UserDto userDto = new UserDto();

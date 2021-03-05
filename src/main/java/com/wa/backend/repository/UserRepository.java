@@ -30,6 +30,10 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
 			nativeQuery = true)
 	Page<UserEntity> findAllUsersWithConfirmedEmailAddress( Pageable pageableRequest );
 	
+        @Query(value="select * from Users u where u.status != 'DEACTIVATED'", 
+			countQuery="select count(*) from Users u where u.status != 'DEACTIVATED'", 
+			nativeQuery = true)
+	Page<UserEntity> findAllUsersNotDeactivated( Pageable pageableRequest );
 
         
     @Modifying

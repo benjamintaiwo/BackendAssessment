@@ -53,7 +53,7 @@ public class AmazonSES {
 		//System.setProperty("aws.accessKeyId", "<YOUR KEY ID HERE>"); 
 		//System.setProperty("aws.secretKey", "<SECRET KEY HERE>"); 
 		
-		AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard().withRegion(Regions.US_EAST_1)
+		AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder.standard().withRegion(Regions.US_WEST_2)
 				.build();
  
 		String htmlBodyWithToken = HTMLBODY.replace("$tokenValue", userDto.getEmailVerificationToken());

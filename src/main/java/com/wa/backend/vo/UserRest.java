@@ -5,6 +5,10 @@ public class UserRest {
 	private String firstName;
 	private String lastName;
 	private String email;
+        private String title, mobilePhone;
+     
+        
+        
 	
 
 	public String getUserId() {
@@ -39,6 +43,22 @@ public class UserRest {
 		this.email = email;
 	}
 
+        public String getTitle() {
+            return title;
+        }
 
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getMobilePhone() {
+            return mobilePhone;
+        }
+
+        public void setMobilePhone(String mobilePhone) {
+            this.mobilePhone = mobilePhone;
+        }
+
+        
 
 }

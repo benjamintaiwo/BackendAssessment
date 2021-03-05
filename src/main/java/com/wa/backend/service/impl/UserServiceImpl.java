@@ -59,9 +59,6 @@ public class UserServiceImpl implements UserService{
 		if (userRepository.findByEmail(user.getEmail()) != null)
 			throw new UserServiceException("Record already exists");
              
-		if (user.getMobilePhone() != null && user.getMobilePhone().length() < 11 || user.getMobilePhone().length() > 11)
-                    throw new UserServiceException("MobilePhone number is not correct");
-		
 		
 		ModelMapper modelMapper = new ModelMapper();
 		UserEntity userEntity = modelMapper.map(user, UserEntity.class);
@@ -71,16 +68,21 @@ public class UserServiceImpl implements UserService{
 		userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		userEntity.setEmailVerificationToken(utils.generateEmailVerificationToken(publicUserId));
                 userEntity.setDateRegistered(today);
-                userEntity.setStatus(StatusEnums.REGISTERED);
-                userEntity.setTheRole(RoleEnums.USER);
+                userEntity.setStatus(StatusEnums.REGISTERED.name());
+                userEntity.setTheRole(RoleEnums.USER.name());
                 
 
 		UserEntity storedUserDetails = userRepository.save(userEntity);
  
 		//BeanUtils.copyProperties(storedUserDetails, returnValue);
 		UserDto returnValue  = modelMapper.map(storedUserDetails, UserDto.class);
-		
-                amazonSES.verifyEmail(returnValue);
+                try {
+                    amazonSES.verifyEmail(returnValue);
+                } catch (Exception e) {
+                    
+                    return returnValue;
+            }
+               
 
 		return returnValue;
 	}
@@ -120,6 +122,8 @@ public class UserServiceImpl implements UserService{
 
 		if (userEntity == null)
 			throw new UsernameNotFoundException("User with ID: " + userId + " not found");
+                if (userEntity.getStatus().equalsIgnoreCase(StatusEnums.DEACTIVATED.name()))
+                    throw new UsernameNotFoundException("User with ID: " + userId + " not found");
 
 		BeanUtils.copyProperties(userEntity, returnValue);
 
@@ -133,10 +137,16 @@ public class UserServiceImpl implements UserService{
 		UserEntity userEntity = userRepository.findByUserId(userId);
 
 		if (userEntity == null)
-			throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-
+			throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());               
+               
+                Date dateUpdated= new Date();
 		userEntity.setFirstName(user.getFirstName());
 		userEntity.setLastName(user.getLastName());
+                userEntity.setDateUpdated(dateUpdated);
+                userEntity.setMobilePhone(user.getMobilePhone());
+                userEntity.setEmail(user.getEmail());
+                userEntity.setTitle(user.getTitle());
+                
 
 		UserEntity updatedUserDetails = userRepository.save(userEntity);
 		returnValue = new ModelMapper().map(updatedUserDetails, UserDto.class);
@@ -151,11 +161,17 @@ public class UserServiceImpl implements UserService{
 
 		if (userEntity == null)
 			throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+                String email = userEntity.getEmail();
                 Date today = new Date();
-                userEntity.setStatus(StatusEnums.DEACTIVATED);
+                userEntity.setStatus(StatusEnums.DEACTIVATED.name());
                 userEntity.setDateDeactivated(today);
-                amazonSES.offBoard(userEntity.getEmail());
                 userRepository.save(userEntity);
+               try {
+                amazonSES.offBoard(email);
+            } catch (Exception e) {
+                return;
+            }
+                
                 
 		//userRepository.delete(userEntity);
 
@@ -169,7 +185,7 @@ public class UserServiceImpl implements UserService{
 		
 		Pageable pageableRequest = PageRequest.of(page, limit);
 		
-		Page<UserEntity> usersPage = userRepository.findAll(pageableRequest);
+		Page<UserEntity> usersPage = userRepository.findAllUsersNotDeactivated(pageableRequest);
 		List<UserEntity> users = usersPage.getContent();
 		
         for (UserEntity userEntity : users) {
@@ -193,6 +209,7 @@ public class UserServiceImpl implements UserService{
             if (!hastokenExpired) {
                 userEntity.setEmailVerificationToken(null);
                 userEntity.setVerified(Boolean.TRUE);
+                userEntity.setStatus(StatusEnums.VERIFIED.name());
                 userRepository.save(userEntity);
                 returnValue = true;
             }

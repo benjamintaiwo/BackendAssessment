@@ -6,6 +6,7 @@ public class UserDetailsRequestModel {
 	private String lastName;
 	private String email;
 	private String password;
+        private String MobilePhone, title;
 	
 	public String getFirstName() {
 		return firstName;
@@ -31,6 +32,22 @@ public class UserDetailsRequestModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 
+        public String getMobilePhone() {
+            return MobilePhone;
+        }
+
+        public void setMobilePhone(String MobilePhone) {
+            this.MobilePhone = MobilePhone;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+	
+        
 }
