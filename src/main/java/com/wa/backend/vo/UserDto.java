@@ -25,6 +25,9 @@ public class UserDto implements Serializable {
     private String password;
     private String encryptedPassword;
     private String emailVerificationToken;
+    private String theRole;
+    private String status;
+    private Boolean verified;
    
     
     
@@ -107,6 +110,30 @@ public class UserDto implements Serializable {
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
+    }
+
+    public String getTheRole() {
+        return theRole;
+    }
+
+    public void setTheRole(String theRole) {
+        this.theRole = theRole;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
     }
     
     

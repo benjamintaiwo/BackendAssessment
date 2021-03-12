@@ -54,6 +54,19 @@ public class Utils {
 
 		return returnValue;
 	}
+    
+     public static boolean isEmailValid(String email) {
+        
+      String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+      return email.matches(regex);
+    
+    }
+     public static boolean isRoleValid(String theRole) {
+        
+      return (theRole.equalsIgnoreCase("USER") || theRole.equalsIgnoreCase("ADMIN"));
+     
+    
+    }
 
 	
     public String generateEmailVerificationToken(String userId) {

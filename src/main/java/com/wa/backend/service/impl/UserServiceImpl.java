@@ -55,11 +55,28 @@ public class UserServiceImpl implements UserService{
  
 	@Override
 	public UserDto createUser(UserDto user) {
+                
 
-		if (userRepository.findByEmail(user.getEmail()) != null)
+                if (user.getEmail().isBlank())
+                    throw new UserServiceException("Kindly provide a user email");
+                if (user.getFirstName().isBlank())
+                    throw new UserServiceException("Kindly input firstname");
+                if (user.getLastName().isBlank())
+                    throw new UserServiceException("Kindly input lastname");
+                if (user.getTheRole().isBlank())
+                    throw new UserServiceException("the role field cannot be empty");
+                if (user.getMobilePhone().isBlank())
+                    throw new UserServiceException("kindly enter your phone number");
+                if (user.getMobilePhone().length() != 11)
+                    throw new UserServiceException("Kindly enter an eleven digit phone number");
+		if (!Utils.isRoleValid(user.getTheRole()))
+                    throw new UserServiceException("role can only be user or admin");
+                if (!Utils.isEmailValid(user.getEmail()))
+                    throw new UserServiceException("email is not valid");
+                if (userRepository.findByEmail(user.getEmail()) != null)
 			throw new UserServiceException("Record already exists");
-             
-		
+                
+                
 		ModelMapper modelMapper = new ModelMapper();
 		UserEntity userEntity = modelMapper.map(user, UserEntity.class);
                 Date today = new Date();
@@ -69,8 +86,8 @@ public class UserServiceImpl implements UserService{
 		userEntity.setEmailVerificationToken(utils.generateEmailVerificationToken(publicUserId));
                 userEntity.setDateRegistered(today);
                 userEntity.setStatus(StatusEnums.REGISTERED.name());
-                userEntity.setTheRole(RoleEnums.USER.name());
-                
+                userEntity.setTheRole(user.getTheRole().equalsIgnoreCase("User") ? RoleEnums.USER.name() : RoleEnums.ADMIN.name());
+                userEntity.setVerified(Boolean.FALSE);
 
 		UserEntity storedUserDetails = userRepository.save(userEntity);
  
@@ -79,8 +96,9 @@ public class UserServiceImpl implements UserService{
                 try {
                     amazonSES.verifyEmail(returnValue);
                 } catch (Exception e) {
-                    
-                    return returnValue;
+                    e.printStackTrace();
+                    throw new UserServiceException("Record saved but email service failed!");
+                    //return returnValue;
             }
                
 

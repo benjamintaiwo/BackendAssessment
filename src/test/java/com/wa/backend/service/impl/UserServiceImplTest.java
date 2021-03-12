@@ -101,6 +101,8 @@ class UserServiceImplTest {
 		userDto.setLastName("Taiwo");
 		userDto.setPassword("12345678");
 		userDto.setEmail("test@test.com");
+                userDto.setTheRole("user");
+                userDto.setMobilePhone("08067848034");
  	
 		assertThrows(UserServiceException.class,
 
@@ -128,6 +130,7 @@ class UserServiceImplTest {
 		userDto.setPassword("12345678");
 		userDto.setEmail("test@test.com");
                 userDto.setMobilePhone("08067848034");
+                userDto.setTheRole("user");
                 
 
 		UserDto storedUserDetails = userService.createUser(userDto);
