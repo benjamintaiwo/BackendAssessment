@@ -35,3 +35,8 @@ This approach allows me to change the view and models independently without havi
 *   mvn spring-boot:run
 *   locate http://localhost:8080/api/swagger-ui.html  --You will find the documentaion of the endpoints on the swagger page
 *   You can also test with Postman; the application consumes and produce both json and xml
+
+## You can reach the deployed app on:
+* http://vbp-test.vanso.com:5000/api/swagger-ui.html
+* On the swagger page, please be reminded to change the scheme from HTTPS to HTTP
+
